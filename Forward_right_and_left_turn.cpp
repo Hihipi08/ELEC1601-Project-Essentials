@@ -1,5 +1,5 @@
-// C++ code
-//
+// This code makes robot go forward and then turn right and left if there is a gap in the wall
+// Still needs code to detect a wall in front of the robot
 #include <Servo.h>
 
 Servo servoLeft;
