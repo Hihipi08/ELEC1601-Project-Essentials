@@ -1,6 +1,7 @@
 // this code contains a function  to find the distance the robot is from a wall based on the data we collected
 // it has a lot of delays so I am unsure if this is the best way to write this function so open to more ideas on how to do this better
 // also each sensor had slightly different data, hence there are three functions
+// can be used to help code scenarios for the robot
 
 #include <Servo.h>
 
