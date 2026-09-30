@@ -87,5 +87,3 @@ void loop()
 
         STOP
 }
-
-// my sister wants to know how git works
