@@ -36,7 +36,7 @@ void setup()
 }
 
 void loop() { //might need to change these values
-    if (find_distance_left() <= 3 && find_distance_front() <= 5 %% find_distance_right() >= 8) {
+    if (find_distance_left() <= 3 && find_distance_front() <= 5 && find_distance_right() >= 8) {
         servoLeft.writeMicroseconds(1550); //turn
         servoRight.writeMicroseconds(1550);
         digitalWrite(Sensor_LED_Right, HIGH);
