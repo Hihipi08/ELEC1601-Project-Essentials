@@ -66,7 +66,7 @@ void loop()
     distanceR = find_distance_right();
     distanceF = find_distance_front();
 
-    if (distanceL <= 8 && distanceR <= 8 &&
+    if (distanceL <= 8 &&
         distanceL + INITIAL_DIFFERENCE <= distanceR && // left closer than right
         distanceF >= 10)
     {
