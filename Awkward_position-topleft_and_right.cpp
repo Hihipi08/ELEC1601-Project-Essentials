@@ -6,70 +6,55 @@ Servo servoRight;
 // Variables
 int val_right = 0;
 int val_left = 0;
-
-// Green and red LEDs
-int LED_G_Left = 8;
-int LED_G_Right = 4;
+// LEDs
+int LED_R_Left = 8;
+int LED_R_Right = 4;
 int LED_R_Left = 9;
 int LED_R_Right = 5;
-
-// IR sensors
+// Sensors
 int IR_LED_Left = 10;
 int Sensor_Left = 11;
-
 int IR_LED_Front = 6;
 int Sensor_Front = 7;
-
 int IR_LED_Right = 2;
 int Sensor_Right = 3;
-
 // Sensor LEDs
 int Sensor_LED_Left = A2;
 int Sensor_LED_Front = A1;
 int Sensor_LED_Right = A0;
-
 // IR values
 int ir_valL = 0;
 int ir_valF = 0;
 int ir_valR = 0;
-
 // Distance variables
 int distanceL = 0;
 int distanceF = 0;
 int distanceR = 0;
 
-
 void setup()
 {
-    // Attach servos
     servoLeft.attach(13);
     servoRight.attach(12);
-
     // IR LEDs
     pinMode(IR_LED_Right, OUTPUT);
     pinMode(IR_LED_Left, OUTPUT);
     pinMode(IR_LED_Front, OUTPUT);
-
     // IR sensors
     pinMode(Sensor_Left, INPUT);
     pinMode(Sensor_Right, INPUT);
     pinMode(Sensor_Front, INPUT);
-
-    // Red and green LEDs
+    // LEDs
     pinMode(LED_R_Right, OUTPUT);
     pinMode(LED_R_Left, OUTPUT);
     pinMode(LED_G_Left, OUTPUT);
     pinMode(LED_G_Right, OUTPUT);
-
     // Sensor LEDs
     pinMode(Sensor_LED_Left, OUTPUT);
     pinMode(Sensor_LED_Front, OUTPUT);
     pinMode(Sensor_LED_Right, OUTPUT);
-
     // Start servos stopped
     servoLeft.writeMicroseconds(1500);
     servoRight.writeMicroseconds(1500);
-
     // Find initial distances
     distanceL = find_distance_left();
     distanceF = find_distance_front();
@@ -79,9 +64,7 @@ void setup()
 
 void loop()
 {
-    // Check if left wall is close,
-    // front wall is close,
-    // and right side is open
+    // Check if left wall is close, front wall is close, right side is open
     if (find_distance_left() <= 3 &&
         find_distance_front() <= 5 &&
         find_distance_right() >= 8)
@@ -95,32 +78,29 @@ void loop()
         digitalWrite(Sensor_LED_Left, HIGH);
         digitalWrite(Sensor_LED_Front, HIGH);
 
-        delay(1107);
-
+        delay(1107); // vary value
         // Stop
         servoLeft.writeMicroseconds(1500);
         servoRight.writeMicroseconds(1500);
 
         delay(500);
 
-        // Travel straight for 4 cm
+        // Travel straight for 4 cm - roughly
         servoLeft.writeMicroseconds(1568);
         servoRight.writeMicroseconds(1432);
 
-        delay(200);
+        delay(300);
 
         // Turn left
         servoLeft.writeMicroseconds(1450);
         servoRight.writeMicroseconds(1450);
 
-        delay(283);
-
-        // Travel straight afterwards
+        delay(283); - correct delay
+        // Travel straight after
         servoLeft.writeMicroseconds(1568);
         servoRight.writeMicroseconds(1432);
     }
 }
-
 
 int find_distance_left()
 {
