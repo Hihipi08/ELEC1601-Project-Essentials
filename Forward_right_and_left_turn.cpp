@@ -45,7 +45,7 @@ void setup()
 }
 void loop()
 {
-  if (irDetectFrequencyRight() == 1 && irDetectFrequencyLeft() == 1 && irDetectFrequencyLeft() == 0) //forwards
+  if (irDetectFrequencyRight() == 1 && irDetectFrequencyLeft() == 1 && irDetectFrequencyFront() == 0) //forwards
   {
     servoLeft.writeMicroseconds(1568); 
     servoRight.writeMicroseconds(1432);
@@ -54,7 +54,7 @@ void loop()
     digitalWrite(Sensor_LED_Front, LOW);
   }
 
-  else if (irDetectFrequencyRight() == 0 && irDetectFrequencyLeft() == 0 && irDetectFrequencyLeft() == 0) //forwards
+  else if (irDetectFrequencyRight() == 0 && irDetectFrequencyLeft() == 0 && irDetectFrequencyFront() == 0) //forwards
   {
     servoLeft.writeMicroseconds(1568);
     servoRight.writeMicroseconds(1432);
@@ -64,36 +64,64 @@ void loop()
   }
     
   
-  else if (irDetectFrequencyLeft() == 0 && irDetectFrequencyRight() == 1 && irDetectFrequencyLeft() == 0) //left turn
+  else if (irDetectFrequencyLeft() == 0 && irDetectFrequencyRight() == 1 && irDetectFrequencyFront() == 0) //left turn
     {
       delay(900);
       servoLeft.writeMicroseconds(1550); //turn
       servoRight.writeMicroseconds(1550);
       digitalWrite(Sensor_LED_Right, HIGH);
       digitalWrite(Sensor_LED_Left, LOW);
-      digitalWrite(Sensor_LED_Front, LOW);
-      delay(830);
+      digitalWrite(Sensor_LED_Front, HIGH);
+      delay(830); //might need to change value
       servoLeft.writeMicroseconds(1568); //moves forwards before checking where it is again
       servoRight.writeMicroseconds(1432);
       delay(500);
     }
 
-    else if (irDetectFrequencyRight() == 0 && irDetectFrequencyLeft() == 1 && irDetectFrequencyLeft() == 0) //right turn
+  else if (irDetectFrequencyLeft() == 0 && irDetectFrequencyRight() == 1 && irDetectFrequencyFront() == 1) //left turn
+    {
+      delay(900);
+      servoLeft.writeMicroseconds(1550); //turn
+      servoRight.writeMicroseconds(1550);
+      digitalWrite(Sensor_LED_Right, HIGH);
+      digitalWrite(Sensor_LED_Left, LOW);
+      digitalWrite(Sensor_LED_Front, HIGH);
+      delay(830); //might need to change this value
+      servoLeft.writeMicroseconds(1568); //moves forwards before checking where it is again
+      servoRight.writeMicroseconds(1432);
+      delay(500);
+    }
+
+  else if (irDetectFrequencyRight() == 0 && irDetectFrequencyLeft() == 1 && irDetectFrequencyFront() == 0) //right turn
     {
       delay(900);
       servoLeft.writeMicroseconds(1450); //turn
       servoRight.writeMicroseconds(1450);
       digitalWrite(Sensor_LED_Left, HIGH);
       digitalWrite(Sensor_LED_Right, LOW);
-      digitalWrite(Sensor_LED_Front, LOW);
-      delay(780);
+      digitalWrite(Sensor_LED_Front, HIGH);
+      delay(780); //might need to change this value
+      servoLeft.writeMicroseconds(1568); //moves forwards before checking where it is again
+      servoRight.writeMicroseconds(1432);
+      delay(500);
+    }
+
+  else if (irDetectFrequencyRight() == 0 && irDetectFrequencyLeft() == 1 && irDetectFrequencyFront() == 1) //right turn
+    {
+      delay(900);
+      servoLeft.writeMicroseconds(1450); //turn
+      servoRight.writeMicroseconds(1450);
+      digitalWrite(Sensor_LED_Left, HIGH);
+      digitalWrite(Sensor_LED_Right, LOW);
+      digitalWrite(Sensor_LED_Front, HIGH);
+      delay(780); //might need to change this value
       servoLeft.writeMicroseconds(1568); //moves forwards before checking where it is again
       servoRight.writeMicroseconds(1432);
       delay(500);
     }
 
     // Dead end, does 180 turn then moves forward
-    if (irDetectFrequencyFront() == 1 && irDetectFrequencyRight() == 1 && irDetectFrequencyLeft() == 1)
+    if (irDetectFrequencyFront() == 1 && irDetectFrequencyRight() == 1 && irDetectFrequencyFront() == 1)
     {
       servoLeft.writeMicroseconds(1500); //stops for half a second
       servoRight.writeMicroseconds(1500);
@@ -103,7 +131,7 @@ void loop()
       delay(500);
       servoLeft.writeMicroseconds(1550); //180 degree turn
       servoRight.writeMicroseconds(1550);
-      delay(1660);
+      delay(1660); //might need to change this value
       servoLeft.writeMicroseconds(1568); // goes forwards for half a second
       servoRight.writeMicroseconds(1432);
       delay(500);
