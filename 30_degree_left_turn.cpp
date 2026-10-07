@@ -63,7 +63,16 @@ void loop()
       servoRight.writeMicroseconds(1500);
     }
 
-    else if
+    else if (find_distance_left() <= 4 && find_distance_front() <= 12 && find_distance_right() >= 8) {
+        servoLeft.writeMicroseconds(1550); //turn
+        servoRight.writeMicroseconds(1550);
+        digitalWrite(Sensor_LED_Right, HIGH);
+        digitalWrite(Sensor_LED_Left, HIGH);
+        digitalWrite(Sensor_LED_Front, HIGH);
+        delay(200); // change the delay so it turns properly
+        servoLeft.writeMicroseconds(1500);
+        servoRight.writeMicroseconds(1500);
+}
 }
     
 
