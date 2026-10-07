@@ -62,28 +62,44 @@ void setup()
   delay(2000);
 }
 
-// THIS IS STILL PSEUDOCODE, SORRY
+
 void loop()
 {
-    IF left sees wall
-    AND right sees wall
-    AND front >= 10 cm
-    AND left - right > PARALLEL_THRESHOLD:
+    distanceL = find_distance_left();
+    distanceR = find_distance_right();
+    distanceF = find_distance_front();
 
-        rotate clockwise
+    if (distanceL <= 8 && distanceR <= 8 && distanceF >= 10 && distanceL - distanceR > PARALLEL_THRESHOLD)
+    {
+        leftParallel();
+    }
+    else
+    {
+        servoLeft.writeMicroseconds(FORWARD_LEFT);
+        servoRight.writeMicroseconds(FORWARD_RIGHT);
+    }
+}
 
-        WHILE abs(left - right) > PARALLEL_THRESHOLD:
-            keep rotating clockwise
 
-        move forward
+void leftParallel()
+{
+    while (abs(distanceL - distanceR) > PARALLEL_THRESHOLD)
+    {
+        if (distanceL > distanceR)
+        {
+            servoLeft.writeMicroseconds(CLOCKWISE);
+            servoRight.writeMicroseconds(CLOCKWISE);
+        }
+        else
+        {
+            servoLeft.writeMicroseconds(ANTICLOCKWISE);
+            servoRight.writeMicroseconds(ANTICLOCKWISE);
+        }
 
-        // Continue checking parallelism while moving
+        distanceL = find_distance_left();
+        distanceR = find_distance_right();
+    }
 
-        WHILE not at corridor centre:
-            adjust heading
-
-        // If necessary
-        reverse slightly
-
-        STOP
+    servoLeft.writeMicroseconds(FORWARD_LEFT);
+    servoRight.writeMicroseconds(FORWARD_RIGHT);
 }
