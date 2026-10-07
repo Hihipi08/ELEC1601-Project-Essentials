@@ -220,7 +220,7 @@ int find_distance_front() //done
                   delay(1);
                   ir_valF = digitalRead(Sensor_Front);
                   if (ir_valF == 0) { distanceF = 11; }
-                  else {distanceF = 12}
+                  else {distanceF = 12;}
                 }
               }
             }
