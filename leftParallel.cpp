@@ -67,34 +67,14 @@ void loop()
     distanceF = find_distance_front();
 
     if (distanceL <= 8 && distanceR <= 8 &&
-        distanceR + INITIAL_DIFFERENCE <= distanceL && // right wall closer than left wall
+        distanceL + INITIAL_DIFFERENCE <= distanceR && // left closer than right
         distanceF >= 10)
     {
-        rightParallel();
+        leftParallel();
     }
 }
 
-// trying to help it center again
-// Idk if this'll work Irl
-// this is as far my imagination can go..
-void rightParallel()
+
+void leftParallel()
 {
-    servoLeft.writeMicroseconds(CLOCKWISE);
-    servoRight.writeMicroseconds(CLOCKWISE);
-    delay(200);
-
-    servoLeft.writeMicroseconds(FORWARD_LEFT);
-    servoRight.writeMicroseconds(FORWARD_RIGHT);
-    delay(500);
-
-    servoLeft.writeMicroseconds(ANTICLOCKWISE);
-    servoRight.writeMicroseconds(ANTICLOCKWISE);
-    delay(200);
-
-    servoLeft.writeMicroseconds(REVERSE_LEFT);
-    servoRight.writeMicroseconds(REVERSE_RIGHT);
-    delay(200);
-
-    servoLeft.writeMicroseconds(STOP);
-    servoRight.writeMicroseconds(STOP);
 }
