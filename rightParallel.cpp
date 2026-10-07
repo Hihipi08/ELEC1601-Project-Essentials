@@ -66,7 +66,7 @@ void loop()
     distanceR = find_distance_right();
     distanceF = find_distance_front();
 
-    if (distanceL <= 8 && distanceR <= 8 &&
+    if (distanceR <= 8 &&
         distanceR + INITIAL_DIFFERENCE <= distanceL && // right wall closer than left wall
         distanceF >= 10)
     {
