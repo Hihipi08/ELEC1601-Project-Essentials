@@ -77,11 +77,7 @@ void loop()
     Serial.print(" Right = ");
     Serial.println(distanceR);
 
-    // CHECK REQUIRED WALL CONFIGURATION
-
-    // Left wall is close
-    // Front wall is close
-    // Right side is open
+    // Left wall is close, Front wall is close, Right side is open
 
     if (distanceL <= 3 &&
         distanceF <= 5 &&
@@ -96,7 +92,7 @@ void loop()
         servoLeft.writeMicroseconds(1550);
         servoRight.writeMicroseconds(1550);
 
-        delay(600);      // Calibrate for 90°
+        delay(200);      // Calibrate for 90°
 
         servoLeft.writeMicroseconds(1500);
         servoRight.writeMicroseconds(1500);
@@ -117,7 +113,7 @@ void loop()
         servoLeft.writeMicroseconds(1600);
         servoRight.writeMicroseconds(1400);
 
-        delay(400);      // Calibrate for 5 cm
+        delay(200);      // Calibrate for 5 cm
 
         servoLeft.writeMicroseconds(1500);
         servoRight.writeMicroseconds(1500);
