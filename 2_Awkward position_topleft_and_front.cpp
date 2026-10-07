@@ -34,6 +34,11 @@ void setup()
   pinMode(LED_R_Right, OUTPUT);
   pinMode(LED_R_Mid, OUTPUT);
   pinMode(LED_R_Left, OUTPUT);
+  
+  distanceL = find_distance_left();
+  distanceF = find_distance_front();
+  distanceR = find_distance_right();
+
 
   servoLeft.writeMicroseconds(1500);
   servoRight.writeMicroseconds(1500);
