@@ -75,6 +75,25 @@ void loop()
 }
 
 
+// just reversed from the rightParallel ones
 void leftParallel()
 {
+    servoLeft.writeMicroseconds(CLOCKWISE);
+    servoRight.writeMicroseconds(CLOCKWISE);
+    delay(200);
+
+    servoLeft.writeMicroseconds(FORWARD_LEFT);
+    servoRight.writeMicroseconds(FORWARD_RIGHT);
+    delay(500);
+
+    servoLeft.writeMicroseconds(ANTICLOCKWISE);
+    servoRight.writeMicroseconds(ANTICLOCKWISE);
+    delay(200);
+
+    servoLeft.writeMicroseconds(REVERSE_LEFT);
+    servoRight.writeMicroseconds(REVERSE_RIGHT);
+    delay(200);
+
+    servoLeft.writeMicroseconds(STOP);
+    servoRight.writeMicroseconds(STOP);
 }
