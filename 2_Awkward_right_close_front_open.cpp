@@ -64,42 +64,24 @@ void setup()
 
 void loop()
 {
-    // Check if left wall is close, front wall is close, right side is open
-    if (find_distance_left() <= 3 &&
-        find_distance_front() <= 5 &&
-        find_distance_right() >= 8)
-    {
-        // Turn right
-        servoLeft.writeMicroseconds(1550);
-        servoRight.writeMicroseconds(1550);
-
-        // Turn on sensor LEDs
+    // Turn on sensor LEDs
         digitalWrite(Sensor_LED_Right, HIGH);
         digitalWrite(Sensor_LED_Left, HIGH);
         digitalWrite(Sensor_LED_Front, HIGH);
-
-        delay(1107); // vary value
-        // Stop
-        servoLeft.writeMicroseconds(1500);
-        servoRight.writeMicroseconds(1500);
-
-        delay(500);
-
-        // Travel straight for 4 cm - roughly
+    servoLeft.writeMicroseconds(1568);
+    servoRight.writeMicroseconds(1432);
+    
+    if (find_distance_front() <=5  &&
+        find_distance_left() <=8   &&
+        find_distance_right() >= 8
+        )
+        servoLeft.writeMicroseconds(1550);
+        servoRight.writeMicroseconds(1550);
+        delay(830);
+    
         servoLeft.writeMicroseconds(1568);
         servoRight.writeMicroseconds(1432);
 
-        delay(300);
-
-        // Turn left
-        servoLeft.writeMicroseconds(1450);
-        servoRight.writeMicroseconds(1450);
-
-        delay(283); - correct delay
-        // Travel straight after
-        servoLeft.writeMicroseconds(1568);
-        servoRight.writeMicroseconds(1432);
-    }
 }
 
 int find_distance_left()
