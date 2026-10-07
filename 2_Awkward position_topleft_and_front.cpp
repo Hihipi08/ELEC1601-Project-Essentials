@@ -63,47 +63,42 @@ void loop()
     // 90 degree clockwise turn
     servoLeft.writeMicroseconds(1550);
     servoRight.writeMicroseconds(1550);
-    delay(600);
+    delay(1000);
     servoLeft.writeMicroseconds(1500);
     servoRight.writeMicroseconds(1500);
 
-    delay(200);
+    delay(1000);
 
     // additional 30 degree clockwise turn
     servoLeft.writeMicroseconds(1550);
     servoRight.writeMicroseconds(1550);
-    delay(200);
+    delay(1000);
     servoLeft.writeMicroseconds(1500);
     servoRight.writeMicroseconds(1500);
 
-    delay(200);
+    delay(1000);
 
     // move forward 5 cm
     servoLeft.writeMicroseconds(1600);
     servoRight.writeMicroseconds(1400);
-    delay(400);
+    delay(1000);
     servoLeft.writeMicroseconds(1500);
     servoRight.writeMicroseconds(1500);
 
-    delay(200);
+    delay(1000);
 
     // 30 degree anticlockwise turn
     servoLeft.writeMicroseconds(1450);
     servoRight.writeMicroseconds(1450);
-    delay(200);
+    delay(1000);
     servoLeft.writeMicroseconds(1500);
     servoRight.writeMicroseconds(1500);
 
-    delay(200);
+    delay(1000);
 
     // continue forward
     servoLeft.writeMicroseconds(1600);
     servoRight.writeMicroseconds(1400);
-
-    while(true)
-    {
-    }
-  }
 
   // normal movement
   servoLeft.writeMicroseconds(1600);
