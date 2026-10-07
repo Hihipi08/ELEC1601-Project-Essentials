@@ -39,13 +39,16 @@ void setup()
   pinMode(Sensor_Left, INPUT);
   pinMode(Sensor_Right, INPUT);
   pinMode(Sensor_Front, INPUT);
+  pinMode(Sensor_LED_Right, OUTPUT);
+  pinMode(Sensor_LED_Left, OUTPUT);
+  pinMode(Sensor_LED_Front, OUTPUT);
   servoLeft.writeMicroseconds(1500);
   servoRight.writeMicroseconds(1500);
   delay(2000); //just so robot is stationary when placing it in the maze
 }
 void loop()
 {
-  if (irDetectFrequencyRight() == 1 && irDetectFrequencyLeft() == 1 && irDetectFrequencyFront() == 0) //forwards
+  if (irDetectFrequencyRight() == 1 && irDetectFrequencyLeft() == 1 && find_distance_front() == 12) //forwards
   {
     servoLeft.writeMicroseconds(1568); 
     servoRight.writeMicroseconds(1432);
@@ -54,7 +57,7 @@ void loop()
     digitalWrite(Sensor_LED_Front, LOW);
   }
 
-  else if (irDetectFrequencyRight() == 0 && irDetectFrequencyLeft() == 0 && irDetectFrequencyFront() == 0) //forwards
+  else if (irDetectFrequencyRight() == 0 && irDetectFrequencyLeft() == 0 && find_distance_front() == 12) //forwards
   {
     servoLeft.writeMicroseconds(1568);
     servoRight.writeMicroseconds(1432);
@@ -64,14 +67,14 @@ void loop()
   }
     
   
-  else if (irDetectFrequencyLeft() == 0 && irDetectFrequencyRight() == 1 && irDetectFrequencyFront() == 0) //left turn
+  else if (irDetectFrequencyLeft() == 0 && irDetectFrequencyRight() == 1 && find_distance_front() == 12) //left turn
     {
       delay(900);
       servoLeft.writeMicroseconds(1550); //turn
       servoRight.writeMicroseconds(1550);
       digitalWrite(Sensor_LED_Right, HIGH);
       digitalWrite(Sensor_LED_Left, LOW);
-      digitalWrite(Sensor_LED_Front, HIGH);
+      digitalWrite(Sensor_LED_Front, LOW);
       delay(830); //might need to change value
       servoLeft.writeMicroseconds(1568); //moves forwards before checking where it is again
       servoRight.writeMicroseconds(1432);
@@ -81,7 +84,7 @@ void loop()
       delay(1000);
     }
 
-  else if (irDetectFrequencyLeft() == 0 && irDetectFrequencyRight() == 1 && irDetectFrequencyFront() == 1) //left turn
+  else if (irDetectFrequencyLeft() == 0 && irDetectFrequencyRight() == 1 && find_distance_front() < 12) //left turn
     {
       delay(900);
       servoLeft.writeMicroseconds(1550); //turn
@@ -98,14 +101,14 @@ void loop()
       delay(1000);
     }
 
-  else if (irDetectFrequencyRight() == 0 && irDetectFrequencyLeft() == 1 && irDetectFrequencyFront() == 0) //right turn
+  else if (irDetectFrequencyRight() == 0 && irDetectFrequencyLeft() == 1 && find_distance_front() == 12) //right turn
     {
       delay(900);
       servoLeft.writeMicroseconds(1450); //turn
       servoRight.writeMicroseconds(1450);
       digitalWrite(Sensor_LED_Left, HIGH);
       digitalWrite(Sensor_LED_Right, LOW);
-      digitalWrite(Sensor_LED_Front, HIGH);
+      digitalWrite(Sensor_LED_Front, LOW);
       delay(780); //might need to change this value
       servoLeft.writeMicroseconds(1568); //moves forwards before checking where it is again
       servoRight.writeMicroseconds(1432);
@@ -115,7 +118,7 @@ void loop()
       delay(1000);
     }
 
-  else if (irDetectFrequencyRight() == 0 && irDetectFrequencyLeft() == 1 && irDetectFrequencyFront() == 1) //right turn
+  else if (irDetectFrequencyRight() == 0 && irDetectFrequencyLeft() == 1 && find_distance_front() < 12) //right turn
     {
       delay(900);
       servoLeft.writeMicroseconds(1450); //turn
@@ -133,13 +136,33 @@ void loop()
     }
 
     // Dead end, does 180 turn then moves forward
-    if (irDetectFrequencyFront() == 1 && irDetectFrequencyRight() == 1 && find_distance_front() <= 8)
+    if (irDetectFrequencyFront() == 1 && irDetectFrequencyRight() == 1 && find_distance_front() < 12)
     {
       servoLeft.writeMicroseconds(1500); //stops for half a second
       servoRight.writeMicroseconds(1500);
       digitalWrite(Sensor_LED_Right, HIGH);
       digitalWrite(Sensor_LED_Left, HIGH);
-      digitalWrite(Sensor_LED_Front, LOW);
+      digitalWrite(Sensor_LED_Front, HIGH);
+      delay(500);
+      servoLeft.writeMicroseconds(1550); //180 degree turn
+      servoRight.writeMicroseconds(1550);
+      delay(1660); //might need to change this value
+      servoLeft.writeMicroseconds(1568); // goes forwards for half a second
+      servoRight.writeMicroseconds(1432);
+      delay(500);
+      servoLeft.writeMicroseconds(1500); //task requires a stop after completion
+      servoRight.writeMicroseconds(1500);
+      delay(1000);
+    }
+
+    // Dead end, does 180 turn then moves forward
+    if (irDetectFrequencyFront() == 0 && irDetectFrequencyRight() == 0 && find_distance_front() < 12)
+    {
+      servoLeft.writeMicroseconds(1500); //stops for half a second
+      servoRight.writeMicroseconds(1500);
+      digitalWrite(Sensor_LED_Right, LOW);
+      digitalWrite(Sensor_LED_Left, LOW);
+      digitalWrite(Sensor_LED_Front, HIGH);
       delay(500);
       servoLeft.writeMicroseconds(1550); //180 degree turn
       servoRight.writeMicroseconds(1550);
@@ -160,7 +183,6 @@ int irDetectFrequencyLeft()
   delay(1);
   ir_valL = digitalRead(Sensor_Left);
   noTone(IR_LED_Left);
-  delay(1);
   return ir_valL;
 }
 
@@ -170,7 +192,6 @@ int irDetectFrequencyRight()
   delay(1);
   ir_valR = digitalRead(Sensor_Right);
   noTone(IR_LED_Right);
-  delay(1);
   return ir_valR;
 }
 
@@ -180,7 +201,6 @@ int irDetectFrequencyFront()
   delay(1);
   ir_valR = digitalRead(Sensor_Front);
   noTone(IR_LED_Front);
-  delay(1);
   return ir_valF;
 }
 
