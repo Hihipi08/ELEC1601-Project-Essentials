@@ -13,6 +13,7 @@ int Sensor_Right = 3;
 int LED_R_Right = A0;
 int LED_R_Mid = A1;
 int LED_R_Left = A2;
+
 int distanceL = 0;
 int distanceF = 0;
 int distanceR = 0;
