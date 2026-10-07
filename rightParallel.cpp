@@ -69,37 +69,35 @@ void loop()
     distanceR = find_distance_right();
     distanceF = find_distance_front();
 
-    if (distanceL <= 8 && distanceR <= 8 && distanceF >= 10 && distanceL - distanceR > PARALLEL_THRESHOLD)
+    if (distanceL <= 8 && distanceR <= 8 &&
+        distanceL + INITIAL_DIFFERENCE <= distanceR && // left wall closer than right
+        distanceF >= 10)
     {
         leftParallel();
     }
-    else
-    {
-        servoLeft.writeMicroseconds(FORWARD_LEFT);
-        servoRight.writeMicroseconds(FORWARD_RIGHT);
-    }
 }
 
-
+// trying to help it center again
+// Idk if this'll work Irl
+// this is as far my imagination can go..
 void leftParallel()
 {
-    while (abs(distanceL - distanceR) > PARALLEL_THRESHOLD)
-    {
-        if (distanceL > distanceR)
-        {
-            servoLeft.writeMicroseconds(CLOCKWISE);
-            servoRight.writeMicroseconds(CLOCKWISE);
-        }
-        else
-        {
-            servoLeft.writeMicroseconds(ANTICLOCKWISE);
-            servoRight.writeMicroseconds(ANTICLOCKWISE);
-        }
-
-        distanceL = find_distance_left();
-        distanceR = find_distance_right();
-    }
+    servoLeft.writeMicroseconds(CLOCKWISE);
+    servoRight.writeMicroseconds(CLOCKWISE);
+    delay(200);
 
     servoLeft.writeMicroseconds(FORWARD_LEFT);
     servoRight.writeMicroseconds(FORWARD_RIGHT);
+    delay(500);
+
+    servoLeft.writeMicroseconds(ANTICLOCKWISE);
+    servoRight.writeMicroseconds(ANTICLOCKWISE);
+    delay(200);
+
+    servoLeft.writeMicroseconds(REVERSE_LEFT);
+    servoRight.writeMicroseconds(REVERSE_RIGHT);
+    delay(200);
+
+    servoLeft.writeMicroseconds(STOP);
+    servoRight.writeMicroseconds(STOP);
 }
