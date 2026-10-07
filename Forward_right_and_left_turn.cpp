@@ -38,7 +38,7 @@ void setup()
   pinMode(IR_LED_Front, OUTPUT);
   pinMode(Sensor_Left, INPUT);
   pinMode(Sensor_Right, INPUT);
-  pinmode(Sensor_Front, INPUT);
+  pinMode(Sensor_Front, INPUT);
   servoLeft.writeMicroseconds(1500);
   servoRight.writeMicroseconds(1500);
   delay(2000); //just so robot is stationary when placing it in the maze
@@ -237,7 +237,7 @@ int find_distance_front()
                   delay(1);
                   ir_valF = digitalRead(Sensor_Front);
                   if (ir_valF == 0) { distanceF = 11; }
-                  else {distanceF = 12}
+                  else {distanceF = 12;}
                 }
               }
             }
