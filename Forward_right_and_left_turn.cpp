@@ -133,7 +133,7 @@ void loop()
     }
 
     // Dead end, does 180 turn then moves forward
-    if (irDetectFrequencyFront() == 1 && irDetectFrequencyRight() == 1 && 2 <= irDetectFrequencyFront() <= 7)
+    if (irDetectFrequencyFront() == 1 && irDetectFrequencyRight() == 1 && find_distance_front() <= 8)
     {
       servoLeft.writeMicroseconds(1500); //stops for half a second
       servoRight.writeMicroseconds(1500);
@@ -182,4 +182,71 @@ int irDetectFrequencyFront()
   noTone(IR_LED_Front);
   delay(1);
   return ir_valF;
+}
+
+int find_distance_front()
+{
+  tone(IR_LED_Front, 65000);
+  delay(1);
+  ir_valF = digitalRead(Sensor_Front);
+  if (ir_valF == 0) { distanceF = 2; }
+  else
+  {
+    tone(IR_LED_Front, 55000);
+    delay(1);
+    ir_valF = digitalRead(Sensor_Front);
+    if (ir_valF == 0) { distanceF = 3; }
+    else
+    {
+      tone(IR_LED_Front, 45000);
+      delay(1);
+      ir_valF = digitalRead(Sensor_Front);
+      if (ir_valF == 0) { distanceF = 4; }
+      else
+      {
+        tone(IR_LED_Front, 43000);
+        delay(1);
+        ir_valF = digitalRead(Sensor_Front);
+        if (ir_valF == 0) { distanceF = 5; }
+        else
+        {
+          tone(IR_LED_Front, 42000);
+          delay(1);
+          ir_valF = digitalRead(Sensor_Front);
+          if (ir_valF == 0) { distanceF = 6; }
+          else 
+          {
+            tone(IR_LED_Front, 41000);
+          	delay(1);
+          	ir_valF = digitalRead(Sensor_Front);
+          	if (ir_valF == 0) { distanceF = 7; }
+          	else 
+            {
+              tone(IR_LED_Front, 40000);
+          	  delay(1);
+          	  ir_valF = digitalRead(Sensor_Front);
+          	  if (ir_valF == 0) { distanceF = 8; }
+              else {
+                tone(IR_LED_Front, 39000);
+                delay(1);
+                ir_valF = digitalRead(Sensor_Front);
+                if (ir_valF == 0) { distanceF = 10; }
+                else 
+                {
+                  tone(IR_LED_Front, 38000);
+                  delay(1);
+                  ir_valF = digitalRead(Sensor_Front);
+                  if (ir_valF == 0) { distanceF = 11; }
+                  else {distanceF = 12}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  noTone(IR_LED_Front);
+  return distanceF;
 }
