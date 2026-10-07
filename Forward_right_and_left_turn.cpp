@@ -76,6 +76,9 @@ void loop()
       servoLeft.writeMicroseconds(1568); //moves forwards before checking where it is again
       servoRight.writeMicroseconds(1432);
       delay(500);
+      servoLeft.writeMicroseconds(1500); //task requires a stop after completion
+      servoRight.writeMicroseconds(1500);
+      delay(1000);
     }
 
   else if (irDetectFrequencyLeft() == 0 && irDetectFrequencyRight() == 1 && irDetectFrequencyFront() == 1) //left turn
@@ -90,6 +93,9 @@ void loop()
       servoLeft.writeMicroseconds(1568); //moves forwards before checking where it is again
       servoRight.writeMicroseconds(1432);
       delay(500);
+      servoLeft.writeMicroseconds(1500); //task requires a stop after completion
+      servoRight.writeMicroseconds(1500);
+      delay(1000);
     }
 
   else if (irDetectFrequencyRight() == 0 && irDetectFrequencyLeft() == 1 && irDetectFrequencyFront() == 0) //right turn
@@ -104,6 +110,9 @@ void loop()
       servoLeft.writeMicroseconds(1568); //moves forwards before checking where it is again
       servoRight.writeMicroseconds(1432);
       delay(500);
+      servoLeft.writeMicroseconds(1500); //task requires a stop after completion
+      servoRight.writeMicroseconds(1500);
+      delay(1000);
     }
 
   else if (irDetectFrequencyRight() == 0 && irDetectFrequencyLeft() == 1 && irDetectFrequencyFront() == 1) //right turn
@@ -118,16 +127,19 @@ void loop()
       servoLeft.writeMicroseconds(1568); //moves forwards before checking where it is again
       servoRight.writeMicroseconds(1432);
       delay(500);
+      servoLeft.writeMicroseconds(1500); //task requires a stop after completion
+      servoRight.writeMicroseconds(1500);
+      delay(1000);
     }
 
     // Dead end, does 180 turn then moves forward
-    if (irDetectFrequencyFront() == 1 && irDetectFrequencyRight() == 1 && irDetectFrequencyFront() == 1)
+    if (irDetectFrequencyFront() == 1 && irDetectFrequencyRight() == 1 && 2 <= irDetectFrequencyFront() <= 7)
     {
       servoLeft.writeMicroseconds(1500); //stops for half a second
       servoRight.writeMicroseconds(1500);
       digitalWrite(Sensor_LED_Right, HIGH);
       digitalWrite(Sensor_LED_Left, HIGH);
-      digitalWrite(Sensor_LED_Front, HIGH);
+      digitalWrite(Sensor_LED_Front, LOW);
       delay(500);
       servoLeft.writeMicroseconds(1550); //180 degree turn
       servoRight.writeMicroseconds(1550);
@@ -135,6 +147,9 @@ void loop()
       servoLeft.writeMicroseconds(1568); // goes forwards for half a second
       servoRight.writeMicroseconds(1432);
       delay(500);
+      servoLeft.writeMicroseconds(1500); //task requires a stop after completion
+      servoRight.writeMicroseconds(1500);
+      delay(1000);
     }
   
 }
