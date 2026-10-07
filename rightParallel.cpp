@@ -12,7 +12,7 @@ const int Sensor_Right = 3;
 
 const int Sensor_LED_Right = A0;
 const int Sensor_LED_Front = A1;
-const int Sensor_LED_Left = A2;
+const int Sensor_LED_Left  = A2;
 
 const int STOP = 1500;
 const int FORWARD_LEFT = 1568;
@@ -22,43 +22,40 @@ const int CLOCKWISE = 1450;
 const int REVERSE_LEFT = 1432;
 const int REVERSE_RIGHT = 1568;
 
-const int PARALLEL_THRESHOLD = 1; // in cm
-const int INITIAL_DIFFERENCE = 2; // cm
+const int INITIAL_DIFFERENCE = 2;
 
-int ir_valL = 0;
-int ir_valF = 0;
-int ir_valR = 0;
 int distanceL = 0;
 int distanceF = 0;
 int distanceR = 0;
 
 void setup()
 {
-  Serial.begin(9600);
+    Serial.begin(9600);
 
-  servoLeft.attach(13);
-  servoRight.attach(12);
+    servoLeft.attach(13);
+    servoRight.attach(12);
 
-  pinMode(IR_LED_Left, OUTPUT);
-  pinMode(IR_LED_Front, OUTPUT);
-  pinMode(IR_LED_Right, OUTPUT);
+    pinMode(IR_LED_Left, OUTPUT);
+    pinMode(IR_LED_Front, OUTPUT);
+    pinMode(IR_LED_Right, OUTPUT);
 
-  pinMode(Sensor_Left, INPUT);
-  pinMode(Sensor_Front, INPUT);
-  pinMode(Sensor_Right, INPUT);
+    pinMode(Sensor_Left, INPUT);
+    pinMode(Sensor_Front, INPUT);
+    pinMode(Sensor_Right, INPUT);
 
-  pinMode(Sensor_LED_Right, OUTPUT);
-  pinMode(Sensor_LED_Front, OUTPUT);
-  pinMode(Sensor_LED_Left, OUTPUT);
+    pinMode(Sensor_LED_Right, OUTPUT);
+    pinMode(Sensor_LED_Front, OUTPUT);
+    pinMode(Sensor_LED_Left, OUTPUT);
 
-  // we need right led A0 OFF, middle led A1 ON, left led A2 ON
-  digitalWrite(Sensor_LED_Right, LOW);
-  digitalWrite(Sensor_LED_Front, HIGH);
-  digitalWrite(Sensor_LED_Left, HIGH);
+    digitalWrite(Sensor_LED_Right, LOW);
+    digitalWrite(Sensor_LED_Front, HIGH);
+    digitalWrite(Sensor_LED_Left, HIGH);
 
-  delay(2000);
+    servoLeft.writeMicroseconds(STOP);
+    servoRight.writeMicroseconds(STOP);
+
+    delay(2000);
 }
-
 
 void loop()
 {
@@ -66,29 +63,28 @@ void loop()
     distanceR = find_distance_right();
     distanceF = find_distance_front();
 
-    if (distanceR <= 8 &&
-        distanceR + INITIAL_DIFFERENCE <= distanceL && // right wall closer than left wall
+    if (distanceL <= 8 &&
+        distanceR <= 8 &&
+        distanceR + INITIAL_DIFFERENCE <= distanceL &&
         distanceF >= 10)
     {
         rightParallel();
     }
 }
 
-// trying to help it center again
-// Idk if this'll work Irl
-// this is as far my imagination can go..
+
 void rightParallel()
 {
-    servoLeft.writeMicroseconds(CLOCKWISE);
-    servoRight.writeMicroseconds(CLOCKWISE);
+    servoLeft.writeMicroseconds(ANTICLOCKWISE);
+    servoRight.writeMicroseconds(ANTICLOCKWISE);
     delay(200);
 
     servoLeft.writeMicroseconds(FORWARD_LEFT);
     servoRight.writeMicroseconds(FORWARD_RIGHT);
     delay(500);
 
-    servoLeft.writeMicroseconds(ANTICLOCKWISE);
-    servoRight.writeMicroseconds(ANTICLOCKWISE);
+    servoLeft.writeMicroseconds(CLOCKWISE);
+    servoRight.writeMicroseconds(CLOCKWISE);
     delay(200);
 
     servoLeft.writeMicroseconds(REVERSE_LEFT);
