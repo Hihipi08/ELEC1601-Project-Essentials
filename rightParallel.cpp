@@ -1,6 +1,3 @@
-
-// we can also use this idea for leftParallel
-
 #include <Servo.h>
 
 Servo servoLeft;
@@ -70,7 +67,7 @@ void loop()
     distanceF = find_distance_front();
 
     if (distanceL <= 8 && distanceR <= 8 &&
-        distanceL + INITIAL_DIFFERENCE <= distanceR && // left wall closer than right
+        distanceR + INITIAL_DIFFERENCE <= distanceL && // right wall closer than left wall
         distanceF >= 10)
     {
         leftParallel();
