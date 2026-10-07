@@ -27,26 +27,45 @@ int distanceR = 0;
 
 void setup()
 {
+    Serial.begin(9600);
+
+    servoLeft.attach(12);
+    servoRight.attach(13);
+
+
     pinMode(IR_LED_Right, OUTPUT);
     pinMode(IR_LED_Left, OUTPUT);
     pinMode(IR_LED_Front, OUTPUT);
+
     pinMode(Sensor_Left, INPUT);
     pinMode(Sensor_Right, INPUT);
-    pinmode(Sensor_Front, INPUT);
+    pinMode(Sensor_Front, INPUT);
+
+    pinMode(Sensor_LED_Right, OUTPUT);
+    pinMode(Sensor_LED_Left, OUTPUT);
+    pinMode(Sensor_LED_Front, OUTPUT);
+
+    digitalWrite(Sensor_LED_Right, HIGH);
+    digitalWrite(Sensor_LED_Left, HIGH);
+    digitalWrite(Sensor_LED_Front, HIGH);
 }
 
-void loop() { //might need to change these values
-    if (find_distance_right() <= 3 && find_distance_front() <= 5 && find_distance_left() >= 8) {
-        servoLeft.writeMicroseconds(1450); //turn
-        servoRight.writeMicroseconds(1450);
-        digitalWrite(Sensor_LED_Right, HIGH);
-        digitalWrite(Sensor_LED_Left, HIGH);
-        digitalWrite(Sensor_LED_Front, HIGH);
-        delay(200); // change the delay so it turns properly
-        servoLeft.writeMicroseconds(1500);
-        servoRight.writeMicroseconds(1500);
+void loop()
+{
+    if (find_distance_right() <= 4 && find_distance_front() <= 12 && find_distance_left() == 11) {
+      servoLeft.writeMicroseconds(1450); //turn
+      servoRight.writeMicroseconds(1450);
+      digitalWrite(Sensor_LED_Right, HIGH);
+      digitalWrite(Sensor_LED_Left, LOW);
+      digitalWrite(Sensor_LED_Front, HIGH);
+      delay(200); // change the delay so it turns properly
+      servoLeft.writeMicroseconds(1500);
+      servoRight.writeMicroseconds(1500);
+    }
+
+    else if
 }
-}
+    
 
 int find_distance_left()
 {
@@ -219,7 +238,7 @@ int find_distance_front() //done
                   delay(1);
                   ir_valF = digitalRead(Sensor_Front);
                   if (ir_valF == 0) { distanceF = 11; }
-                  else {distanceF = 12}
+                  else {distanceF = 12;}
                 }
               }
             }
