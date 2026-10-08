@@ -91,7 +91,7 @@ void loop()
         servoLeft.writeMicroseconds(1450);
         servoRight.writeMicroseconds(1450);
 
-        delay(283); - correct delay
+        delay(283); // correct delay
         // Travel straight after
         servoLeft.writeMicroseconds(1568);
         servoRight.writeMicroseconds(1432);
