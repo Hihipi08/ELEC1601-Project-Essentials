@@ -6,51 +6,65 @@ Servo servoRight;
 // Variables
 int val_right = 0;
 int val_left = 0;
+
 // LEDs
 int LED_R_Left = 8;
 int LED_R_Right = 4;
+
 // Sensors
 int IR_LED_Left = 10;
 int Sensor_Left = 11;
+
 int IR_LED_Front = 6;
 int Sensor_Front = 7;
+
 int IR_LED_Right = 2;
 int Sensor_Right = 3;
+
 // Sensor LEDs
 int Sensor_LED_Left = A2;
 int Sensor_LED_Front = A1;
 int Sensor_LED_Right = A0;
+
 // IR values
 int ir_valL = 0;
 int ir_valF = 0;
 int ir_valR = 0;
+
 // Distance variables
 int distanceL = 0;
 int distanceF = 0;
 int distanceR = 0;
 
+
 void setup()
 {
     servoLeft.attach(13);
     servoRight.attach(12);
+
     // IR LEDs
     pinMode(IR_LED_Right, OUTPUT);
     pinMode(IR_LED_Left, OUTPUT);
     pinMode(IR_LED_Front, OUTPUT);
+
     // IR sensors
     pinMode(Sensor_Left, INPUT);
     pinMode(Sensor_Right, INPUT);
     pinMode(Sensor_Front, INPUT);
+
     // LEDs
     pinMode(LED_R_Right, OUTPUT);
     pinMode(LED_R_Left, OUTPUT);
+
     // Sensor LEDs
     pinMode(Sensor_LED_Left, OUTPUT);
     pinMode(Sensor_LED_Front, OUTPUT);
     pinMode(Sensor_LED_Right, OUTPUT);
+
     // Start servos stopped
     servoLeft.writeMicroseconds(1500);
     servoRight.writeMicroseconds(1500);
+
     // Find initial distances
     distanceL = find_distance_left();
     distanceF = find_distance_front();
@@ -60,30 +74,37 @@ void setup()
 
 void loop()
 {
-    if (find_distance_front() <=8  &&
-        find_distance_left() <=8   &&
+    // If all three walls are within 8
+    if (find_distance_front() <= 8 &&
+        find_distance_left() <= 8 &&
         find_distance_right() <= 8)
+    {
         // Turn on sensor LEDs
-            digitalWrite(Sensor_LED_Right, HIGH);
-            digitalWrite(Sensor_LED_Left, HIGH);
-            digitalWrite(Sensor_LED_Front, HIGH);
-    
-        //travel straight
-            servoLeft.writeMicroseconds(1568);
-            servoRight.writeMicroseconds(1432);
-    
-            if (find_distance_front() <=5  &&
-            find_distance_right() >= 8)
-            
-                servoLeft.writeMicroseconds(1550);
-                servoRight.writeMicroseconds(1550);
-    
-                delay(830);
-    
-                servoLeft.writeMicroseconds(1568);
-                servoRight.writeMicroseconds(1432);
+        digitalWrite(Sensor_LED_Right, HIGH);
+        digitalWrite(Sensor_LED_Left, HIGH);
+        digitalWrite(Sensor_LED_Front, HIGH);
 
+        // Travel straight
+        servoLeft.writeMicroseconds(1568);
+        servoRight.writeMicroseconds(1432);
+    }
+
+    // If front is close and right side is open
+    if (find_distance_front() <= 5 &&
+        find_distance_right() >= 8)
+    {
+        // Turn right
+        servoLeft.writeMicroseconds(1550);
+        servoRight.writeMicroseconds(1550);
+
+        delay(830);
+
+        // Travel straight
+        servoLeft.writeMicroseconds(1568);
+        servoRight.writeMicroseconds(1432);
+    }
 }
+
 
 int find_distance_left()
 {
