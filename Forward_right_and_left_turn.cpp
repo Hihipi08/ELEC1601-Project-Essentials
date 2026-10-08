@@ -57,10 +57,10 @@ void loop()
     digitalWrite(Sensor_LED_Front, LOW);
   }
 
-  else if (irDetectFrequencyRight() == 0 && irDetectFrequencyLeft() == 0 && find_distance_front() == 12) //forwards
+  else if (irDetectFrequencyRight() == 0 && irDetectFrequencyLeft() == 0 && find_distance_front() == 12) //nothing detected stop
   {
-    servoLeft.writeMicroseconds(1568);
-    servoRight.writeMicroseconds(1432);
+    servoLeft.writeMicroseconds(1500);
+    servoRight.writeMicroseconds(1500);
     digitalWrite(Sensor_LED_Left, LOW);
     digitalWrite(Sensor_LED_Right, LOW);
     digitalWrite(Sensor_LED_Front, LOW);
