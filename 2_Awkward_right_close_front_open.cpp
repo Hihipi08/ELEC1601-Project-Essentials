@@ -60,29 +60,28 @@ void setup()
 
 void loop()
 {
-    // Turn on sensor LEDs
     if (find_distance_front() <=8  &&
         find_distance_left() <=8   &&
         find_distance_right() <= 8)
-        
-        digitalWrite(Sensor_LED_Right, HIGH);
-        digitalWrite(Sensor_LED_Left, HIGH);
-        digitalWrite(Sensor_LED_Front, HIGH);
+        // Turn on sensor LEDs
+            digitalWrite(Sensor_LED_Right, HIGH);
+            digitalWrite(Sensor_LED_Left, HIGH);
+            digitalWrite(Sensor_LED_Front, HIGH);
     
         //travel straight
-        servoLeft.writeMicroseconds(1568);
-        servoRight.writeMicroseconds(1432);
-    
-        if (find_distance_front() <=5  &&
-            find_distance_right() >= 8)
-            
-            servoLeft.writeMicroseconds(1550);
-            servoRight.writeMicroseconds(1550);
-    
-            delay(830);
-    
             servoLeft.writeMicroseconds(1568);
             servoRight.writeMicroseconds(1432);
+    
+            if (find_distance_front() <=5  &&
+            find_distance_right() >= 8)
+            
+                servoLeft.writeMicroseconds(1550);
+                servoRight.writeMicroseconds(1550);
+    
+                delay(830);
+    
+                servoLeft.writeMicroseconds(1568);
+                servoRight.writeMicroseconds(1432);
 
 }
 
