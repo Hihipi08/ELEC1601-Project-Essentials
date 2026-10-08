@@ -9,8 +9,6 @@ int val_left = 0;
 // LEDs
 int LED_R_Left = 8;
 int LED_R_Right = 4;
-int LED_R_Left = 9;
-int LED_R_Right = 5;
 // Sensors
 int IR_LED_Left = 10;
 int Sensor_Left = 11;
@@ -46,8 +44,6 @@ void setup()
     // LEDs
     pinMode(LED_R_Right, OUTPUT);
     pinMode(LED_R_Left, OUTPUT);
-    pinMode(LED_G_Left, OUTPUT);
-    pinMode(LED_G_Right, OUTPUT);
     // Sensor LEDs
     pinMode(Sensor_LED_Left, OUTPUT);
     pinMode(Sensor_LED_Front, OUTPUT);
