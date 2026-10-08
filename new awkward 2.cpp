@@ -1,4 +1,3 @@
-```cpp
 #include <Servo.h>
 
 Servo servoLeft;
@@ -399,41 +398,3 @@ int find_distance_front()
 
     return distanceF;
 }
-```
-
-### The important error
-
-Your original section was:
-
-```cpp
-if (find_distance_front() <=8 &&
-    find_distance_left() <=8 &&
-    find_distance_right() <= 8)
-
-    digitalWrite(Sensor_LED_Right, HIGH);
-    digitalWrite(Sensor_LED_Left, HIGH);
-    digitalWrite(Sensor_LED_Front, HIGH);
-
-    servoLeft.writeMicroseconds(1568);
-    servoRight.writeMicroseconds(1432);
-```
-
-You intended **all four actions** to happen when the condition is true.
-
-Therefore you need:
-
-```cpp
-if (condition)
-{
-    digitalWrite(...);
-    digitalWrite(...);
-    digitalWrite(...);
-
-    servoLeft.writeMicroseconds(...);
-    servoRight.writeMicroseconds(...);
-}
-```
-
-The same issue existed with your second `if`.
-
-One other thing to be aware of: because your two `if` statements are **separate**, both can run during the same `loop()` iteration. If the second condition should be an alternative to the first, you should use `else if` instead.
