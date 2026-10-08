@@ -138,14 +138,14 @@ void loop() {
     }
 
     else if (find_distance_left() == 11 && find_distance_right() == 10 && find_distance_front() >= 10) //nothing detected stop
-  {
-    Serial.println("stopped");
-    servoLeft.writeMicroseconds(1500);
-    servoRight.writeMicroseconds(1500);
-    digitalWrite(Sensor_LED_Left, LOW);
-    digitalWrite(Sensor_LED_Right, LOW);
-    digitalWrite(Sensor_LED_Front, LOW);
-  }
+    {
+      Serial.println("stopped");
+      servoLeft.writeMicroseconds(1500);
+      servoRight.writeMicroseconds(1500);
+      digitalWrite(Sensor_LED_Left, LOW);
+      digitalWrite(Sensor_LED_Right, LOW);
+      digitalWrite(Sensor_LED_Front, LOW);
+    } 
     
   
   else if (find_distance_left() == 11 && find_distance_right() < 10 && find_distance_front() <= 12) //left turn
