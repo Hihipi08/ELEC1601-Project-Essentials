@@ -9,8 +9,6 @@ int val_left = 0;
 // LEDs
 int LED_R_Left = 8;
 int LED_R_Right = 4;
-int LED_R_Left = 9;
-int LED_R_Right = 5;
 // Sensors
 int IR_LED_Left = 10;
 int Sensor_Left = 11;
@@ -46,8 +44,6 @@ void setup()
     // LEDs
     pinMode(LED_R_Right, OUTPUT);
     pinMode(LED_R_Left, OUTPUT);
-    pinMode(LED_G_Left, OUTPUT);
-    pinMode(LED_G_Right, OUTPUT);
     // Sensor LEDs
     pinMode(Sensor_LED_Left, OUTPUT);
     pinMode(Sensor_LED_Front, OUTPUT);
@@ -65,22 +61,28 @@ void setup()
 void loop()
 {
     // Turn on sensor LEDs
+    if (find_distance_front() <=8  &&
+        find_distance_left() <=8   &&
+        find_distance_right() <= 8)
+        
         digitalWrite(Sensor_LED_Right, HIGH);
         digitalWrite(Sensor_LED_Left, HIGH);
         digitalWrite(Sensor_LED_Front, HIGH);
-    servoLeft.writeMicroseconds(1568);
-    servoRight.writeMicroseconds(1432);
     
-    if (find_distance_front() <=5  &&
-        find_distance_left() <=8   &&
-        find_distance_right() >= 8
-        )
-        servoLeft.writeMicroseconds(1550);
-        servoRight.writeMicroseconds(1550);
-        delay(830);
-    
+        //travel straight
         servoLeft.writeMicroseconds(1568);
         servoRight.writeMicroseconds(1432);
+    
+        if (find_distance_front() <=5  &&
+            find_distance_right() >= 8)
+            
+            servoLeft.writeMicroseconds(1550);
+            servoRight.writeMicroseconds(1550);
+    
+            delay(830);
+    
+            servoLeft.writeMicroseconds(1568);
+            servoRight.writeMicroseconds(1432);
 
 }
 
