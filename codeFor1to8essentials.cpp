@@ -72,7 +72,7 @@ void loop() {
       delay(300);
       servoLeft.writeMicroseconds(1500);
       servoRight.writeMicroseconds(1500);
-      delay(500);
+      delay(2000);
     }
 
     else if (6 <= find_distance_left() < 11 && find_distance_front() == 12 && find_distance_right() <= 4) { //right parallel
@@ -100,7 +100,7 @@ void loop() {
       delay(600);
       servoLeft.writeMicroseconds(1500);
       servoRight.writeMicroseconds(1500);
-      delay(500);
+      delay(2000);
     }
 
     else if (find_distance_right() <= 4 && find_distance_front() <= 12 && find_distance_left() == 11) { //30 degree to right wall
@@ -131,7 +131,7 @@ void loop() {
       delay(200); // change the delay so it turns properly
       servoLeft.writeMicroseconds(1500);
       servoRight.writeMicroseconds(1500);
-      delay(500);
+      delay(2000);
     }
 
     else if (find_distance_left() <= 4 && find_distance_front() <= 12 && find_distance_right() >= 8) { //30 degree to left wall
@@ -150,7 +150,7 @@ void loop() {
       delay(200); // change the delay so it turns properly
       servoLeft.writeMicroseconds(1500);
       servoRight.writeMicroseconds(1500);
-      delay(500);
+      delay(2000);
     }
 
     else if (find_distance_left() != 11 && find_distance_right() != 10 && -3 <= find_distance_left() - find_distance_right() <= 3 && find_distance_front() == 12) //forwards
@@ -169,7 +169,7 @@ void loop() {
       digitalWrite(Sensor_LED_Front, LOW);
       servoLeft.writeMicroseconds(1500); 
       servoRight.writeMicroseconds(1500);
-      delay(500);
+      delay(2000);
     }
 
     else if (find_distance_left() == 11 && find_distance_right() == 10 && find_distance_front() >= 10) //nothing detected stop
@@ -204,7 +204,7 @@ void loop() {
       delay(500);
       servoLeft.writeMicroseconds(1500); //task requires a stop after completion
       servoRight.writeMicroseconds(1500);
-      delay(500);
+      delay(2000);
     }
 
   else if (find_distance_left() < 11 && find_distance_right() == 10 && find_distance_front() <= 12) //right turn
@@ -227,7 +227,7 @@ void loop() {
       delay(500);
       servoLeft.writeMicroseconds(1500); //task requires a stop after completion
       servoRight.writeMicroseconds(1500);
-      delay(500);
+      delay(2000);
     }
 
     // Dead end, does 180 turn then moves forward
@@ -251,7 +251,7 @@ void loop() {
       delay(500);
       servoLeft.writeMicroseconds(1500); //task requires a stop after completion
       servoRight.writeMicroseconds(1500);
-      delay(500);
+      delay(2000);
     }
 }
 
